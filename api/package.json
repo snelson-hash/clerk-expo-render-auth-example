@@ -1,0 +1,24 @@
+{
+  "name": "clerk-repro-api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "NODE_ENV=production node --env-file-if-exists=.env --enable-source-maps dist/index.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --unhandled-rejections=strict --test test/auth.test.mjs"
+  },
+  "dependencies": {
+    "@clerk/express": "2.1.86",
+    "@clerk/backend": "3.26.5",
+    "@clerk/shared": "4.43.1",
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "25.9.5",
+    "esbuild": "0.27.3",
+    "typescript": "6.0.3"
+  }
+}

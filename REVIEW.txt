@@ -1,0 +1,66 @@
+STANDALONE VALIDATED PUBLIC EXAMPLE — LIVE FAILURE NOT REPRODUCED
+
+Scope
+- Separate minimal Expo + Express investigation example, with no original
+  application history, database, mappings, application screens, financial
+  features, branding, real instance identifiers, credentials or data.
+- Password sign-in/client-trust email step, secure token cache, untemplated
+  getToken(), HTTPS Bearer request, one protected endpoint and production-shaped
+  ESM API bundling.
+
+Independent validation
+- Extracted only the reviewed allowlisted files outside the original Git
+  repository. No original dependencies or Git history were copied.
+- Node 24.22.1; pnpm 10.26.1; independent HOME and initially empty package store;
+  sanitized process environment with no application credentials or NODE_PATH.
+- Independent install and frozen-lockfile reinstall: passed with install
+  scripts disabled and strict peer checks enabled.
+- API TypeScript check: passed.
+- Mobile TypeScript check: passed.
+- Offline tests with strict unhandled-rejection handling: 11 passed,
+  0 failed, 0 skipped.
+- Minimal API production ESM build with linked source maps: passed.
+- Generated and reviewed pnpm-lock.yaml included in PUBLIC-CONTENTS.txt.
+- Dependency symlink and resolution audit: all links/paths stayed within the
+  standalone example. No dependency pointed into the original application.
+- Lockfile review: public npm packages/integrities, no private registry URLs,
+  embedded credentials, original paths or local-file dependencies.
+- Workspace links refer only to this example's api/mobile packages.
+- All allowlisted public files reviewed and automated public-content checks
+  passed. Packaging includes only those files, never node_modules or dist.
+- Archive readability and byte-for-byte comparison with public source: passed.
+
+Packaging/tooling correction
+- The initial independent install exposed a newer Expo tooling transitive peer
+  requirement incompatible with the pinned expo-constants version.
+- Pinned @expo/cli 57.0.26 and its @expo/router-server 57.0.10 dependency using
+  local original-tooling evidence. No original app package was changed and
+  strict peer checks were not relaxed.
+- Preserved Clerk Express 2.1.86, Backend 3.26.5, server Shared 4.43.1,
+  Clerk Expo 4.0.0, Expo 57.0.24, React Native 0.86.3 and React 19.2.3.
+- Install warned about deprecated transitive crypto-js 4.2.0. No full security
+  audit or native compilation was performed.
+
+Limits — do not describe this as a reproduced live failure
+- Synthetic RSA keys/JWTs were generated in memory only; external requests were
+  blocked during offline tests. The ephemeral loopback test server was closed.
+- Tests exercised this minimal API's production-shaped bundled Clerk middleware,
+  not the original application's deployed production bundle.
+- No actual native development build, phone login, remote JWKS request,
+  hosted reproduction API or live-token test was performed.
+- The previously reported iPhone/Render HTTP 401 has NOT been reproduced here.
+- Server SDK versions are standalone/local evidence, not deployed npm ls output.
+- Original app source, active workflows, hosting, authentication settings,
+  credentials, database records and routing were not changed or restarted.
+
+Publication — owner-approved standalone package
+1. Review all allowlisted files, the lockfile and README simplifications.
+2. Extract only PUBLIC-CONTENTS.txt entries into a fresh folder outside the
+   original repository. Do not copy .git, environment files or dependencies.
+3. Reuse the included lockfile; if any dependency changes, repeat validation.
+4. Inspect every staged file. Exclude all logs, keys, tokens, PEM values,
+   signing files, credentials, real data and generated output.
+5. Only after explicit owner approval, create a NEW repository with one initial
+   reviewed commit and push to a newly approved public remote.
+6. Tell Clerk Support accurately whether a subsequent actual native test
+   reproduces the failure. Keep all private evidence out of the public repo.

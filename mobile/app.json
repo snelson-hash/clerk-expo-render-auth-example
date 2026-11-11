@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Clerk Bearer Repro",
+    "slug": "clerk-bearer-repro",
+    "scheme": "clerkbearerrepro",
+    "version": "1.0.0",
+    "plugins": ["expo-secure-store"],
+    "ios": { "supportsTablet": false }
+  }
+}
