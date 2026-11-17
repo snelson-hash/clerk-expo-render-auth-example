@@ -1,0 +1,17 @@
+modules = ["nodejs-24"]
+
+[workflows]
+runButton = "Clerk Example Expo"
+
+[[workflows.workflow]]
+name = "Clerk Example Expo"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pnpm run start:mobile"
+waitForPort = 3001
+
+[workflows.workflow.metadata]
+outputType = "webview"

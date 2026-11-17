@@ -3,6 +3,8 @@
 README.md
 REVIEW.txt
 PUBLIC-CONTENTS.txt
+SETUP-REVIEW.md
+REPLIT-WORKFLOW-PROPOSAL.toml
 package.json
 pnpm-workspace.yaml
 pnpm-lock.yaml
@@ -17,8 +19,10 @@ api/test/auth.test.mjs
 mobile/.env.example
 mobile/App.tsx
 mobile/app.json
+mobile/eas.json
 mobile/index.js
 mobile/package.json
 mobile/request.ts
 mobile/tsconfig.json
 scripts/check-public.mjs
+scripts/start-replit-expo.sh

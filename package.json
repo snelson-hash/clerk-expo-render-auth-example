@@ -8,6 +8,7 @@
   "scripts": {
     "build:api": "pnpm --filter clerk-repro-api run build",
     "start:api": "pnpm --filter clerk-repro-api run start",
+    "start:mobile": "sh scripts/start-replit-expo.sh",
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm --filter clerk-repro-api run test",
     "check:public": "node scripts/check-public.mjs"

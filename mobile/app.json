@@ -5,6 +5,9 @@
     "scheme": "clerkbearerrepro",
     "version": "1.0.0",
     "plugins": ["expo-secure-store"],
-    "ios": { "supportsTablet": false }
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.easlie.clerkbearerrepro"
+    }
   }
 }

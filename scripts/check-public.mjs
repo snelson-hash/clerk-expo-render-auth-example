@@ -10,7 +10,7 @@ const allowed = new Set(files);
 for (const file of files) {
   if (file.startsWith("/") || file.split("/").includes("..")) throw new Error("Invalid public path");
 }
-const ignored = new Set(["node_modules", "dist", ".expo", "web-build", "coverage"]);
+const ignored = new Set([".git", "node_modules", "dist", ".expo", "web-build", "coverage"]);
 async function walk(relative = "") {
   for (const name of await readdir(join(root, relative))) {
     const file = relative ? `${relative}/${name}` : name;
