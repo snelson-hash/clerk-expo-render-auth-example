@@ -11,6 +11,11 @@ export function createApp(env: NodeJS.ProcessEnv = process.env) {
   }
   const app = express();
   app.disable("x-powered-by");
+  // Public and side-effect-free endpoint for waking a Free Render service.
+  // Keep it before Clerk middleware so warm-up requests do not invoke auth.
+  app.get("/api/healthz", (_req, res) => {
+    res.status(200).set("Cache-Control", "no-store").json({ ok: true });
+  });
   app.use(clerkMiddleware(req => ({
     secretKey: env.CLERK_SECRET_KEY,
     publishableKey: env.CLERK_PUBLISHABLE_KEY,

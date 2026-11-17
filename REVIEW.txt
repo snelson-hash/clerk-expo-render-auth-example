@@ -17,7 +17,7 @@ Independent validation
   scripts disabled and strict peer checks enabled.
 - API TypeScript check: passed.
 - Mobile TypeScript check: passed.
-- Offline tests with strict unhandled-rejection handling: 11 passed,
+- Original offline tests with strict unhandled-rejection handling: 11 passed,
   0 failed, 0 skipped.
 - Minimal API production ESM build with linked source maps: passed.
 - Generated and reviewed pnpm-lock.yaml included in PUBLIC-CONTENTS.txt.
@@ -52,6 +52,22 @@ Limits — do not describe this as a reproduced live failure
 - Server SDK versions are standalone/local evidence, not deployed npm ls output.
 - Original app source, active workflows, hosting, authentication settings,
   credentials, database records and routing were not changed or restarted.
+
+Current local proposal validation
+- Focused offline tests with strict unhandled-rejection handling: 17 passed,
+  0 failed, 0 skipped.
+- API and mobile TypeScript checks: passed using the standalone package's
+  pinned TypeScript version and already-installed local dependency artifacts.
+- Production API build: passed; output reported Clerk Express, Backend and
+  Shared versions resolved as Express -> Backend -> Shared, with no environment
+  values.
+- Mobile request behavior: allowlisted, unknown, and malformed response
+  categories; delayed token acquisition excluded from API timing; stalled error
+  body retains the HTTP status and is labeled separately from fetch timeout.
+- Added a side-effect-free unauthenticated health endpoint for Free-service
+  warm-up; auth middleware remains on the protected endpoint.
+- These checks are synthetic/offline. No live login, hosting service, or
+  production Clerk verification was performed.
 
 Publication — owner-approved standalone package
 1. Review all allowlisted files, the lockfile and README simplifications.

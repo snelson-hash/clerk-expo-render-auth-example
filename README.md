@@ -52,7 +52,9 @@ the original local tooling evidence. No native SDK or app dependency was upgrade
 Strict peer checks were kept enabled, not suppressed.
 
 The included `pnpm-lock.yaml` records the independent install. A frozen-lockfile
-reinstall, both typechecks, all 11 offline tests and the production build passed.
+reinstall, both typechecks, the original 11 offline tests and production build
+passed before this proposal. The focused proposal checks are reported separately
+in `REVIEW.txt`.
 Dependency links and resolved paths were audited: all stayed inside the separate
 example folder. The lockfile contains no original application paths, private
 registry URLs, embedded credentials or local-file dependencies. Its only
@@ -108,14 +110,45 @@ reported live failure.
    Current stock Expo Go can be SDK-incompatible. Do not attach the original
    application's development server or change its launch mode.
 10. Sign in with an account from the reproduction Development instance. Use
-    “Call protected API.” Expected baseline is `HTTP 200`. If it returns 401,
-    record only the status and locally allowlisted category, without exporting
-    the Bearer token or arbitrary response data.
+    “Call protected API.” Expected baseline is `HTTP 200`. The screen displays
+    the HTTP status, an explicitly allowlisted response category when present,
+    request elapsed milliseconds, and a UTC timestamp. Unknown or malformed
+    categories become `unclassified`; arbitrary response fields are never
+    shown. A fetch timeout has no HTTP status; if headers arrived but the error
+    body times out, the known status is retained and body timeout is labeled.
 
 The password form also supports the source client's email-based client-trust
 step. Other MFA factors, sign-up, password reset, SSO and OAuth are intentionally
 omitted. If another factor is required, stop and coordinate a minimal supported
 sign-in adjustment with Clerk; do not disable account protections to force it.
+
+## Proposed live endpoint comparison
+
+This is an operator-run plan, not a completed live test. Use a separate API
+service for this example and the same controlled Clerk Development instance for
+both the phone client and API. Do not modify Easlie's Render service.
+
+1. Baseline deployment: keep `CLERK_JWT_KEY`, `CLERK_API_URL`, and
+   `CLERK_API_VERSION` unset in the example service. Keep issuer and
+   authorized-party settings unchanged.
+2. Before each measured attempt on a Free Render service, call the unauthenticated
+   `GET /api/healthz` endpoint and wait for HTTP 200. This wakes a spun-down
+   service; immediately afterward, make the protected-endpoint request. Record
+   its on-screen UTC timestamp, API elapsed time, HTTP status/category or
+   timeout result, plus the deployment revision shown in the hosting dashboard.
+3. PEM deployment: configure the matching Clerk Development public PEM as
+   `CLERK_JWT_KEY` in the example service's private environment. Leave
+   `CLERK_API_URL` and `CLERK_API_VERSION` unset, and keep issuer and
+   authorized-party settings unchanged. Redeploy the example service only.
+4. Before each measured attempt on Free, warm `/api/healthz` again, then repeat
+   the protected request and record the same fields with that deployment's
+   revision. Warming time is not included in the API elapsed time. A result from
+   the protected endpoint is the comparison evidence; offline synthetic tests
+   alone do not reproduce the reported failure.
+
+Keep the API secret key and PEM out of this repository, mobile bundle, command
+arguments, screenshots, and reports. Never copy a Bearer token or arbitrary
+response body into notes. Do not call a client timeout a server response.
 
 ## What is preserved / simplified
 
@@ -137,7 +170,10 @@ sign-in adjustment with Clerk; do not disable account protections to force it.
   broader dependency/build graph.
 - No temporary verification/comparison probe, decoded-token diagnostics, raw
   exception logging, public PEM configuration, or claim response is included.
-  The only response diagnostic is a fixed allowlisted reason category.
+  The response diagnostic is limited to HTTP status and a fixed allowlisted
+  category; request timing stays in the client UI and is not logged. The public
+  `/api/healthz` route is unauthenticated, returns only `{ ok: true }`, and is
+  mounted before Clerk middleware for service warm-up.
 - The API does not log requests, errors, tokens, headers, keys or claims.
   Treat hosting access/debug logs as private; disable any external header/body
   capture and never attach unreviewed logs to the public repository.

@@ -4,7 +4,7 @@ import { ClerkProvider, useAuth, useClerk, useSignIn } from "@clerk/expo";
 import { tokenCache } from "@clerk/expo/token-cache";
 import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView, KeyboardProvider } from "react-native-keyboard-controller";
-import { requestProtected } from "./request";
+import { formatRequestObservation, requestProtected } from "./request";
 
 function Repro() {
   const { isLoaded, isSignedIn, getToken } = useAuth();
@@ -79,7 +79,8 @@ function Repro() {
           <Text>Signed in. No identity is displayed.</Text>
           <Button title="Call protected API" disabled={busy}
             onPress={() => void perform(async () => {
-              setStatus(await requestProtected(() => getToken(), process.env.EXPO_PUBLIC_DOMAIN!));
+              const observation = await requestProtected(() => getToken(), process.env.EXPO_PUBLIC_DOMAIN!);
+              setStatus(formatRequestObservation(observation));
             })} />
           <Button title="Sign out" disabled={busy}
             onPress={() => void perform(async () => {
