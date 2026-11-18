@@ -2,12 +2,18 @@
   "expo": {
     "name": "Clerk Bearer Repro",
     "slug": "clerk-bearer-repro",
+    "owner": "kelnsteffs-team",
     "scheme": "clerkbearerrepro",
     "version": "1.0.0",
     "plugins": ["expo-secure-store"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.easlie.clerkbearerrepro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cc8d5133-8d53-4d44-ba35-d4cca06fc9b4"
+      }
     }
   }
 }
