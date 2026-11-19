@@ -26,3 +26,4 @@ mobile/request.ts
 mobile/tsconfig.json
 scripts/check-public.mjs
 scripts/start-replit-expo.sh
+api/src/logger.ts
