@@ -1,4 +1,6 @@
+import { logger } from "./logger.js";
 import { createApp } from "./app.js";
+logger.info("Pino stage 1 initialized");
 try {
   const server = createApp().listen(Number(process.env.PORT || 3000), "0.0.0.0");
   server.on("error", () => {
